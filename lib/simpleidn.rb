@@ -247,6 +247,8 @@ module SimpleIDN
     # If all we had were dots; return "."
     out = [DOT] if out.empty? && !mapped_domain.empty?
 
+    raise(ConversionError, "The label in the output string is too long.") if out.any? { |s| s.length > 63 }
+
     out.join(DOT).encode(domain.encoding)
   end
 
